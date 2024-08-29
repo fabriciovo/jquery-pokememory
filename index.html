@@ -1,47 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Poke Memory</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <script src="./js/lib/jquery-3.7.1.min.js"></script>
-  </head>
-  <body>
-    <header>
-      <h1 class="">Pokémemory</h1>
-      <nav>
-        <a href="/">Pokédex</a>
-        <a href="/">Pokéduel</a>
-      </nav>
-    </header>
-    <main>
-      <div class="main-container">
-        <div class="card">
-          <div class="pokeball"></div>
-        </div>
-      </div>
-    </main>
-    <footer>footer</footer>
 
-    <script>
-      $(document).ready(function () {
-        const apiUrl = "https://jsonplaceholder.typicode.com/users";
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokememory</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+  <script src="./js/lib/jquery-3.7.1.min.js"></script>
+</head>
 
-        $.getJSON(apiUrl, function (data) {
-          $.each(data, function (index, pokemon) {
-            $("#main-container").append(`<li>${pokemon.name}</li>`);
+
+<body>
+  <header>
+    <h1 class="">Pokémemory</h1>
+    <nav>
+      <a href="/">Pokédex</a>
+      <a href="/">Pokéduel</a>
+    </nav>
+  </header>
+  <main>
+    <div class="main-container">
+
+
+    </div>
+  </main>
+  <footer>footer</footer>
+
+  <script>
+    $(document).ready(function () {
+      const apiUrl = "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
+      var selectedCard = [];
+      var moves = 0
+
+
+      $.getJSON(apiUrl, function (data) {
+        const allPokemon = data.pokemon;
+        const shuffledPokemon = allPokemon.sort(() => 0.5 - Math.random());
+        const selectedPokemon = shuffledPokemon.slice(0, 12);
+        $.each(selectedPokemon, function (index, pokemon) {
+          $(".main-container").append(`
+                <div class="card" id="${pokemon.id}">
+                  <div class="pokeball block"></div>
+                  <img src="${pokemon.img}" width="100%"class="pokemon-img">
+                </div>
+          `);
+
+          $(`#${pokemon.id}`).click(function () {
+            $(this).toggleClass("card-rotate-anim-pokemon");
+            selectedCard.push($(this));
+
+            if (selectedCard.length === 2) {
+              const firstCardImg = selectedCard[0].find("img").attr("src");
+              const secondCardImg = selectedCard[1].find("img").attr("src");
+
+              if (firstCardImg === secondCardImg) {
+                selectedCard = [];
+              } else {
+                setTimeout(() => {
+                  selectedCard.forEach(card => card.removeClass("card-rotate-anim-pokemon"));
+                  selectedCard = [];
+                }, 1000);
+              }
+            }
           });
-        }).fail(function () {
-          alert("Failed to load the API! Please reload the page.");
         });
+      }).fail(function () {
+        alert("Failed to load the API! Please reload the page.");
       });
-    </script>
-  </body>
+    });
+
+
+
+    $(".card").click(function () {
+      $(this).toggleClass("flip");
+      selectedCard.push($(this));
+
+      if (selectedCard.length === 2) {
+        const firstCardImg = selectedCard[0].find("img").attr("src");
+        const secondCardImg = selectedCard[1].find("img").attr("src");
+
+        if (firstCardImg === secondCardImg) {
+          selectedCard = [];
+        } else {
+          setTimeout(() => {
+            selectedCard.forEach(card => card.removeClass("flip"));
+            selectedCard = [];
+          }, 1000);
+        }
+      }
+    });
+
+
+  </script>
+</body>
+
 </html>
