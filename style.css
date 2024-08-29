@@ -1,0 +1,99 @@
+:root{
+    --main-color: #313131;
+}
+
+body {
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    font-family: "Roboto";
+    background-image: url("./public/assets/body_bg.png");
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+header {
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    background-color: var(--main-color);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.main-container {
+    border: solid 4px;
+    border-radius: 12px;
+    width: 70%;
+    height: 480px;
+    background-color: var(--main-color);
+    padding: 16px;
+}
+
+.card {
+    width: 120px;
+    height: 120px;
+    border: solid 4px;
+    border-radius: 12px;
+    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+}
+
+.pokeball {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: solid 2px black;
+    position: relative;
+    background: linear-gradient(to bottom, #EEEEEE 0%, #FFFFFF 100%) !important;
+    margin: 10px auto;
+    transition: all 600ms cubic-bezier(.67, .4, .36, .75);
+    animation: tada 1200ms infinite;
+  }
+  
+  .pokeball::before,
+  .pokeball::after {
+    content: "";
+    display: block;
+    transition: all 600ms cubic-bezier(.67, .4, .36, .75);
+  }
+  
+  .pokeball::before {
+    width: 50px;
+    height: 24px;
+    border-bottom: solid 2px black;
+    border-radius: 25px 25px 0 0;
+    background: linear-gradient(to bottom, #d10000 0%, #ff0000 50%);
+  }
+  
+  .pokeball::after {
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(to bottom, #fff 0%, #ccc 100%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px black,
+                0 0 0 2px #ddd,
+                0 0 0 3.5714285714px black,
+                0 0 10px 2.9411764706px rgba(0,0,0,0.4);
+  }
+  
+  @keyframes tada {
+  }
+  
