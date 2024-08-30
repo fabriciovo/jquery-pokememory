@@ -36,17 +36,14 @@ main {
 
 .main-container {
   display: flex;
-  flex-wrap: wrap;
-  border: solid 4px;
-  border-radius: 12px;
   width: 70%;
-  height: 480px;
-  background-color: var(--main-color);
+  height: 520px;
   padding: 16px;
   gap: 8px;
   justify-content: center;
-  align-items: center;
-  overflow-y: auto;
+  overflow: auto;
+  flex-wrap: wrap;
+  align-content: center;
 }
 
 .card {
