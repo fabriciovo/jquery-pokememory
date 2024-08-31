@@ -1,84 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokémemory</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
-      rel="stylesheet"
-    />
-    <script src="./js/lib/jquery-3.7.1.min.js"></script>
-    <script src="./js/jquery-custom.js"></script>
-  </head>
 
-  <body>
-    <header>
-      <h1>Pokémemory</h1>
-      <nav>
-        <a href="/">Pokédex</a>
-        <a href="/">Pokéduel</a>
-      </nav>
-    </header>
-    <main>
-      <div class="main-container"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokémemory</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
+    rel="stylesheet" />
+  <script src="./js/lib/jquery-3.7.1.min.js"></script>
+  <script src="./js/jquery-custom.js"></script>
+</head>
 
-      <span id="moves">asdsdasd</span>
-      <button onclick="window.location = '/'">Restart</button>
-    </main>
-    <footer>footer</footer>
+<body>
+  <header>
+    <h1>Pokémemory</h1>
+    <nav>
+      <a href="/">Pokédex</a>
+      <a href="/">Pokéduel</a>
+    </nav>
+  </header>
+  <main>
+    <div class="main-container"></div>
 
-    <script>
-      $(document).ready(function () {
-        const apiUrl =
-          "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
-        const selectedCard = [];
-        const pairs = 6;
-        var moves = 0;
-        var canSelectCard = true;
-        function createCard(pokemon) {
-          return `
+    <span id="moves">asdsdasd</span>
+    <button onclick="window.location = '/'">Restart</button>
+  </main>
+  <footer>footer</footer>
+
+  <script>
+    $(document).ready(function () {
+      const apiUrl =
+        "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
+      const selectedCard = [];
+      const pairs = 6;
+      var moves = 0;
+      var canSelectCard = true;
+      function createCard(pokemon) {
+        return `
           <div class="card" data-id="${pokemon.id}">
             <div class="pokeball"></div>
             <img src="${pokemon.img}" class="pokemon-img">
           </div>
         `;
+      }
+
+      function handleCardClick(card) {
+        if (!canSelectCard) return;
+        const $card = $(card);
+        $card.removeClass("card-rotate-reverse");
+        $card.toggleClass("card-rotate");
+        $card.find(".pokeball").fadeOut("slow", function () {
+          $card.find(".pokemon-img").fadeIn("slow");
+        });
+
+        selectedCard.push($card);
+
+        if (selectedCard.length === 2) {
+          checkForMatch();
         }
+      }
 
-        function handleCardClick(card) {
-          if (!canSelectCard) return;
-          const $card = $(card);
-          $card.removeClass("card-rotate-reverse");
-          $card.toggleClass("card-rotate");
-          $card.find(".pokeball").fadeOut("slow", function () {
-            $card.find(".pokemon-img").fadeIn("slow");
-          });
+      function checkForMatch() {
+        canSelectCard = false;
+        const firstCard = selectedCard[0];
+        const secondCard = selectedCard[1];
+        moves++;
+        $("#moves").text("Moves: " + moves);
+        const firstCardImg = firstCard.find("img").attr("src");
+        const secondCardImg = secondCard.find("img").attr("src");
 
-          selectedCard.push($card);
+        if (firstCardImg === secondCardImg) {
+          selectedCard.length = 0;
+          canSelectCard = true;
+        } else {
+          setTimeout(() => {
 
-          if (selectedCard.length === 2) {
-            checkForMatch();
-          }
-        }
-
-        function checkForMatch() {
-          canSelectCard = false;
-          const firstCard = selectedCard[0];
-          const secondCard = selectedCard[1];
-          moves++;
-          $("#moves").text("Moves: " + moves);         
-          const firstCardImg = firstCard.find("img").attr("src");
-          const secondCardImg = secondCard.find("img").attr("src");
-
-          if (firstCardImg === secondCardImg) {
-            selectedCard.length = 0;
-            canSelectCard = true;
-          } else {
             selectedCard.forEach((card) => {
-              setTimeout(() => {
+              card.shake(20, 2, 0.5, function () {
                 card.removeClass("card-rotate");
                 card.toggleClass("card-rotate-reverse");
                 card.find(".pokemon-img").fadeOut("slow", function () {
@@ -86,28 +88,32 @@
                   selectedCard.length = 0;
                   canSelectCard = true;
                 });
-              }, 2000);
-            });
-          }
-        }
+              });
 
-        $.getJSON(apiUrl, function (data) {
-          const shuffledPokemon = data.pokemon
-            .sort(() => 0.5 - Math.random())
-            .slice(0, pairs);
-          const duplicated = [...shuffledPokemon, ...shuffledPokemon];
-          const cardsHtml = duplicated
-            .map((pokemon) => createCard(pokemon))
-            .join("");
-          $(".main-container").html(cardsHtml);
-          $(".pokemon-img").hide();
-          $(".card").on("click", function () {
-            handleCardClick(this);
-          });
-        }).fail(function () {
-          alert("Failed to load the API! Please reload the page.");
+            });
+          }, 1000); 
+
+        }
+      }
+
+      $.getJSON(apiUrl, function (data) {
+        const shuffledPokemon = data.pokemon
+          .sort(() => 0.5 - Math.random())
+          .slice(0, pairs);
+        const duplicated = [...shuffledPokemon, ...shuffledPokemon];
+        const cardsHtml = duplicated
+          .map((pokemon) => createCard(pokemon))
+          .join("");
+        $(".main-container").html(cardsHtml);
+        $(".pokemon-img").hide();
+        $(".card").on("click", function () {
+          handleCardClick(this);
         });
+      }).fail(function () {
+        alert("Failed to load the API! Please reload the page.");
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
+
 </html>
