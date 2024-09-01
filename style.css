@@ -138,3 +138,12 @@ main {
     0 0 0 3.5714285714px black,
     0 0 10px 2.9411764706px rgba(0, 0, 0, 0.4);
 }
+
+footer {
+  display: block;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 60px;
+  color: white;
+  background-color: var(--main-color);
+}
