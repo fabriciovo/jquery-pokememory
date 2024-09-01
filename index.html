@@ -24,17 +24,19 @@
     </nav>
   </header>
   <main>
-    
+
     <div class="main-container"></div>
 
-    <span id="moves">asdsdasd</span>
-    <button onclick="window.location = '/'">Restart</button>
+    <div class="main-bottom">
+      <span id="moves">asdsdasd</span>
+      <button onclick="window.location = '/'">Restart</button>
+    </div>
   </main>
   <footer>
     Build with Jquery, HTML and CSS
-    <br/>
+    <br />
     <a href="https://github.com/fabriciovo/jquery-pokememory" target="_blank" className="underline">Repository Link</a>
-</footer>
+  </footer>
   <script>
     $(document).ready(function () {
       const apiUrl =
@@ -88,12 +90,12 @@
           selectedCard.length = 0;
           canSelectCard = true;
           pairCount++;
-          setTimeout(()=>{
+          setTimeout(() => {
             firstCard.addClass("card-green");
             secondCard.addClass("card-green");
           }, 1000)
           console.log(pairCount)
-          if (pairCount == 6){
+          if (pairCount == 6) {
             $("main").prepend(win())
           }
 

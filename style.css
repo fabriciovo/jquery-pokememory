@@ -36,14 +36,20 @@ main {
 
 .main-container {
   display: flex;
-  width: 35%;
-  height: 520px;
+  height: 548px;
+  max-width: 528px;
   padding: 16px;
   gap: 8px;
   justify-content: center;
   overflow: auto;
   flex-wrap: wrap;
   align-content: center;
+}
+
+.main-bottom {
+  display: flex;
+  justify-content: space-between;
+  width: 35%;
 }
 
 .card {
