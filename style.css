@@ -36,7 +36,7 @@ main {
 
 .main-container {
   display: flex;
-  width: 70%;
+  width: 35%;
   height: 520px;
   padding: 16px;
   gap: 8px;
@@ -61,6 +61,14 @@ main {
   border-color: #474747;
 }
 
+.card-green {
+  border-color: greenyellow;
+  cursor: unset;
+}
+
+.card-green:hover {
+  border-color: greenyellow;
+}
 .card-rotate {
   animation: card-anim 1s linear;
   transform: rotateY(180deg);

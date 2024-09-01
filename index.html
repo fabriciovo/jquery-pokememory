@@ -24,6 +24,7 @@
     </nav>
   </header>
   <main>
+    
     <div class="main-container"></div>
 
     <span id="moves">asdsdasd</span>
@@ -38,6 +39,7 @@
       const selectedCard = [];
       const pairs = 6;
       var moves = 0;
+      var pairCount = 0;
       var canSelectCard = true;
       function createCard(pokemon) {
         return `
@@ -45,6 +47,12 @@
             <div class="pokeball"></div>
             <img src="${pokemon.img}" class="pokemon-img">
           </div>
+        `;
+      }
+
+      function win() {
+        return `
+          <p>Congratulations you matched all pairs!</p>
         `;
       }
 
@@ -76,9 +84,18 @@
         if (firstCardImg === secondCardImg) {
           selectedCard.length = 0;
           canSelectCard = true;
+          pairCount++;
+          setTimeout(()=>{
+            firstCard.addClass("card-green");
+            secondCard.addClass("card-green");
+          }, 1000)
+          console.log(pairCount)
+          if (pairCount == 6){
+            $("main").prepend(win())
+          }
+
         } else {
           setTimeout(() => {
-
             selectedCard.forEach((card) => {
               card.shake(20, 2, 0.5, function () {
                 card.removeClass("card-rotate");
@@ -91,8 +108,7 @@
               });
 
             });
-          }, 1000); 
-
+          }, 1000);
         }
       }
 
