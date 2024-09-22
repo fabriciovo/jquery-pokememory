@@ -1,16 +1,33 @@
 :root {
   --main-color: #313131;
+  --btn-hover-color: #474747;
+  --main-font: "Roboto";
+}
+
+* {
+  font-family: "Roboto";
 }
 
 body {
   display: flex;
   padding: 0px;
   margin: 0px;
-  font-family: "Roboto";
   background-image: url("./public/assets/body_bg.png");
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
+}
+
+nav > a {
+  color: white;
+  text-decoration: none;
+  height: 100%;
+  align-content: center;
+  padding: 8px;
+}
+
+a:hover {
+  background-color: var(--btn-hover-color);
 }
 
 header {
@@ -23,7 +40,7 @@ header {
 nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  margin-right: 8px;
 }
 
 main {
@@ -64,7 +81,7 @@ main {
 }
 
 .card:hover {
-  border-color: #474747;
+  border-color: var(--btn-hover-color);
 }
 
 .card-green {
@@ -103,15 +120,53 @@ main {
   }
 }
 
+#moves {
+  background-color: var(--main-color);
+  color: white;
+  border: solid 2px;
+  width: 120px;
+  height: 34px;
+  border-radius: 8px;
+  text-align: center;
+  align-content: center;
+}
+
+h2 {
+  color: white;
+  animation: fade-text 1s;
+}
+
+@keyframes fade-text {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+button {
+  width: 120px;
+  height: 34px;
+  color: white;
+  background-color: var(--main-color);
+  border: solid 2px;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: var(--btn-hover-color);
+}
+
 .pokeball {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   border: solid 2px black;
   position: relative;
-  background: linear-gradient(to bottom, #EEEEEE 0%, #FFFFFF 100%) !important;
+  background: linear-gradient(to bottom, #eeeeee 0%, #ffffff 100%) !important;
   margin: 10px auto;
-  transition: all 600ms cubic-bezier(.67, .4, .36, .75);
+  transition: all 600ms cubic-bezier(0.67, 0.4, 0.36, 0.75);
   animation: tada 1200ms infinite;
 }
 
@@ -119,7 +174,7 @@ main {
 .pokeball::after {
   content: "";
   display: block;
-  transition: all 600ms cubic-bezier(.67, .4, .36, .75);
+  transition: all 600ms cubic-bezier(0.67, 0.4, 0.36, 0.75);
 }
 
 .pokeball::before {
@@ -139,9 +194,7 @@ main {
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  box-shadow: 0 0 0 2px black,
-    0 0 0 2px #ddd,
-    0 0 0 3.5714285714px black,
+  box-shadow: 0 0 0 2px black, 0 0 0 2px #ddd, 0 0 0 3.5714285714px black,
     0 0 10px 2.9411764706px rgba(0, 0, 0, 0.4);
 }
 
