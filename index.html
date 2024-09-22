@@ -4,16 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokémemory</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="conffeti.css" />
-
+    <link rel="stylesheet" href="style.css" />  
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
       rel="stylesheet"
     />
-    <script src="./js/confetti.js"></script>
     <script src="./js/lib/jquery-3.7.1.min.js"></script>
   </head>
 
@@ -26,6 +23,7 @@
       </nav>
     </header>
     <main>
+      <div id="win-text"></div>
       <div class="main-container"></div>
 
       <div class="main-bottom">
@@ -43,7 +41,6 @@
         >Repository Link</a
       >
     </footer>
-
     <script>
       $(document).ready(function () {
         const apiUrl =
@@ -63,19 +60,9 @@
         }
 
         function win() {
+          console.log($("confetti"))
+          $.confetti.start();
           return `
-          <div class="confetti-wrapper">
-  <div class="confetti"></div>
-  <div class="confetti"></div>
-  <div class="confetti"></div>
-  <div class="confetti"></div>
-  <div class="confetti"></div>
-  <div class="confetti"></div>
-  <div class="confetti"></div>
-  <div class="confetti"></div>
-  <div class="confetti"></div>
-  <div class="confetti"></div>
-</div>
           <h2>Congratulations you matched all pairs!</h2>
         `;
         }
@@ -83,6 +70,7 @@
         function handleCardClick(card) {
           if (!canSelectCard) return;
           const $card = $(card);
+          if ($card.hasClass("card-green")) return;
           $card.removeClass("card-rotate-reverse");
           $card.toggleClass("card-rotate");
           $card.find(".pokeball").fadeOut("slow", function () {
@@ -115,7 +103,7 @@
             }, 1000);
             console.log(pairCount);
             if (pairCount == 6) {
-              $("main").prepend(win());
+              $("#win-text").prepend(win());
             }
           } else {
             setTimeout(() => {
@@ -152,6 +140,8 @@
         });
       });
     </script>
-    <script src="./js/jquery-custom.js"></script>
+    <script src="./js/jquery-shake.js"></script>
+    <script src="./js/jquery-confetti.js"></script>
+
   </body>
 </html>

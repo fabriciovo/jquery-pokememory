@@ -131,6 +131,10 @@ main {
   align-content: center;
 }
 
+#win-text {
+  height: 32px;
+}
+
 h2 {
   color: white;
   animation: fade-text 1s;
