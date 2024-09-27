@@ -2,6 +2,7 @@
   --main-color: #313131;
   --btn-hover-color: #474747;
   --main-font: "Roboto";
+  background-color: var(--main-color);
 }
 
 * {
@@ -53,7 +54,7 @@ main {
 
 .main-container {
   display: flex;
-  height: 548px;
+  
   max-width: 528px;
   padding: 16px;
   gap: 8px;
@@ -66,7 +67,7 @@ main {
 .main-bottom {
   display: flex;
   justify-content: space-between;
-  width: 35%;
+  gap: 8px;
 }
 
 .card {
@@ -121,9 +122,7 @@ main {
 }
 
 #moves {
-  background-color: var(--main-color);
   color: white;
-  border: solid 2px;
   width: 120px;
   height: 34px;
   border-radius: 8px;
