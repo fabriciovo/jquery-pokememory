@@ -43,7 +43,6 @@
     </footer>
     <script>
       $(document).ready(function () {
-        
         const apiUrl =
           "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
         const selectedCard = [];
@@ -105,7 +104,6 @@
             console.log(pairCount);
             if (pairCount == 6) {
               $("#win-text").prepend(win());
-              $("#win-text").css("margin-bottom:80px");
             }
           } else {
             setTimeout(() => {
