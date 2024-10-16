@@ -12,9 +12,6 @@
     var tiltAngle = 0;
     var confettiActive = true;
     var animationComplete = true;
-    var deactivationTimerHandler;
-    var reactivationTimerHandler;
-    var animationHandler;
 
     // objects
 
@@ -81,7 +78,7 @@
     }
     function SetGlobals() {
       $("body").append(
-        '<canvas id="confettiCanvas" style="position:absolute;top:0;left:0;display:none;z-index:99;pointer-events: none;"></canvas>'
+        '<canvas id="confettiCanvas" style="position:fixed;top:0;left:0;display:none;z-index:99;pointer-events: none; min-height: 100vh"></canvas>'
       );
       canvas = document.getElementById("confettiCanvas");
       ctx = canvas.getContext("2d");
