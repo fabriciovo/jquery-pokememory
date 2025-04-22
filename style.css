@@ -9,6 +9,11 @@
   font-family: "Roboto";
 }
 
+header {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
 body {
   display: flex;
   padding: 0px;
@@ -24,7 +29,11 @@ nav > a {
   text-decoration: none;
   height: 100%;
   align-content: center;
-  padding: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 a:hover {
@@ -54,7 +63,7 @@ main {
 
 .main-container {
   display: flex;
-  
+
   max-width: 528px;
   padding: 16px;
   gap: 8px;
@@ -80,6 +89,12 @@ main {
   align-items: center;
   cursor: pointer;
 }
+
+.card.selected {
+  border-color: var(--btn-hover-color);
+  cursor: not-allowed;
+}
+
 
 .card:hover {
   border-color: var(--btn-hover-color);
@@ -141,10 +156,10 @@ h2 {
 }
 
 @keyframes fade-text {
-  0%{
+  0% {
     opacity: 0;
   }
-  100%{
+  100% {
     opacity: 1;
   }
 }

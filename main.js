@@ -1,6 +1,9 @@
+import $ from "jquery";
 import "./style.css";
+import "./lib/jquery-confetti.js";
+import "./lib/jquery-shake.js";
 
-$(document).ready(function () {
+$(function () {
   const apiUrl =
     "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
   const selectedCard = [];
@@ -27,7 +30,10 @@ $(document).ready(function () {
 
   function handleCardClick(card) {
     if (!canSelectCard) return;
+    console.log("as")
     const $card = $(card);
+    if ($card.hasClass('selected'))return;
+    $card.addClass('selected')
     if ($card.hasClass("card-green")) return;
     $card.removeClass("card-rotate-reverse");
     $card.toggleClass("card-rotate");
@@ -53,13 +59,17 @@ $(document).ready(function () {
 
     if (firstCardImg === secondCardImg) {
       selectedCard.length = 0;
-      canSelectCard = true;
       pairCount++;
       setTimeout(() => {
         firstCard.addClass("card-green");
         secondCard.addClass("card-green");
+        firstCard.removeClass("selected")
+        secondCard.removeClass("selected")
+        setTimeout(() => {
+          canSelectCard = true;
+        }, 2000); 
       }, 1000);
-      console.log(pairCount);
+
       if (pairCount == 6) {
         $("#win-text").prepend(win());
       }
@@ -72,10 +82,15 @@ $(document).ready(function () {
             card.find(".pokemon-img").fadeOut("slow", function () {
               card.find(".pokeball").fadeIn("slow");
               selectedCard.length = 0;
-              canSelectCard = true;
+              firstCard.removeClass("selected")
+              secondCard.removeClass("selected")
+
             });
           });
         });
+        setTimeout(() => {
+          canSelectCard = true;
+        }, 2000);
       }, 1000);
     }
   }
@@ -86,6 +101,7 @@ $(document).ready(function () {
       .slice(0, pairs);
     const duplicated = [...shuffledPokemon, ...shuffledPokemon];
     const cardsHtml = duplicated
+      .sort(() => Math.random() - 0.5)
       .map((pokemon) => createCard(pokemon))
       .join("");
     $(".main-container").html(cardsHtml);
