@@ -4,13 +4,13 @@ import "./lib/jquery-confetti.js";
 import "./lib/jquery-shake.js";
 
 $(function () {
-  const apiUrl =
-    "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
+  const apiUrl = import.meta.env.VITE_BASE_URL;
   const selectedCard = [];
   const pairs = 6;
   var moves = 0;
   var pairCount = 0;
   var canSelectCard = true;
+  
   function createCard(pokemon) {
     return `
     <div class="card" data-id="${pokemon.id}">
@@ -30,10 +30,9 @@ $(function () {
 
   function handleCardClick(card) {
     if (!canSelectCard) return;
-    console.log("as")
     const $card = $(card);
-    if ($card.hasClass('selected'))return;
-    $card.addClass('selected')
+    if ($card.hasClass("selected")) return;
+    $card.addClass("selected");
     if ($card.hasClass("card-green")) return;
     $card.removeClass("card-rotate-reverse");
     $card.toggleClass("card-rotate");
@@ -63,11 +62,11 @@ $(function () {
       setTimeout(() => {
         firstCard.addClass("card-green");
         secondCard.addClass("card-green");
-        firstCard.removeClass("selected")
-        secondCard.removeClass("selected")
+        firstCard.removeClass("selected");
+        secondCard.removeClass("selected");
         setTimeout(() => {
           canSelectCard = true;
-        }, 2000); 
+        }, 2000);
       }, 1000);
 
       if (pairCount == 6) {
@@ -82,9 +81,8 @@ $(function () {
             card.find(".pokemon-img").fadeOut("slow", function () {
               card.find(".pokeball").fadeIn("slow");
               selectedCard.length = 0;
-              firstCard.removeClass("selected")
-              secondCard.removeClass("selected")
-
+              firstCard.removeClass("selected");
+              secondCard.removeClass("selected");
             });
           });
         });
