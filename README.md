@@ -6,7 +6,7 @@
 
 ## Description
 
-PokéMemory is a classic memory matching game where you flip over cards to find pairs of Pokémon. Earn points for each match, and when you’ve matched all pairs, enjoy a confetti celebration and a victory message.
+PokéMemory is a classic memory matching game where you flip over cards to find pairs of Pokémon. When you’ve matched all pairs, enjoy a confetti celebration and a victory message.
 
 ## Features
 
